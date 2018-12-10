@@ -12,7 +12,11 @@
 namespace App\Http;
 
 use App\Http\Middleware\UserShareMiddleware;
+use App\Http\Middleware\CheckSmsCodeMiddleware;
+use App\Http\Middleware\InstallCheckMiddleware;
+use App\Http\Middleware\CheckImageCaptchaMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use App\Http\Middleware\BackendPermissionCheckMiddleware;
 use App\Http\Middleware\AdministratorLoginCheckMiddleware;
 
 class Kernel extends HttpKernel
@@ -30,6 +34,7 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrimStrings::class,
 //        \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Http\Middleware\TrustProxies::class,
+        \Barryvdh\Cors\HandleCors::class,
     ];
 
     /**
@@ -71,5 +76,9 @@ class Kernel extends HttpKernel
 
         'backend.login.check' => AdministratorLoginCheckMiddleware::class,
         'user.share' => UserShareMiddleware::class,
+        'sms.check' => CheckSmsCodeMiddleware::class,
+        'image.captcha.check' => CheckImageCaptchaMiddleware::class,
+        'backend.permission.check' => BackendPermissionCheckMiddleware::class,
+        'install.check' => InstallCheckMiddleware::class,
     ];
 }

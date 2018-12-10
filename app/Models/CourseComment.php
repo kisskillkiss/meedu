@@ -28,7 +28,6 @@ class CourseComment extends Model
 
     public function setContentAttribute($content)
     {
-        $content = markdown_clean($content);
         $this->attributes['content'] = Emojione::getClient()->shortnameToUnicode($content);
     }
 
@@ -44,6 +43,6 @@ class CourseComment extends Model
 
     public function getContent()
     {
-        return (new \Parsedown())->text($this->content);
+        return markdown_to_html($this->content);
     }
 }
